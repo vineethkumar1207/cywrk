@@ -1,0 +1,9 @@
+import { useState } from 'react';
+import { FileText, ArrowUpRight } from 'lucide-react';
+import { Sheet, SheetContent, SheetTitle, SheetDescription } from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
+import type { Source } from '@/lib/demo-data';
+export function EvidenceDrawer({ open, onOpenChange, sources }: {open:boolean;onOpenChange:(value:boolean)=>void;sources:Source[]}) {
+ const [expanded,setExpanded] = useState<string|null>(null);
+ return <Sheet open={open} onOpenChange={onOpenChange}><SheetContent className="evidence-drawer"><SheetTitle>Behind the conclusion</SheetTitle><SheetDescription className="drawer-description">Supporting evidence, boundaries, and provenance — side by side.</SheetDescription><div className="drawer-badge">ILLUSTRATIVE EVIDENCE · ALL SOURCES ARE DEMO SOURCES</div>{sources.map((source,i)=><article className="source-card" key={source.title}><div className="source-type"><span>{source.type}</span><span className={`source-relation ${source.relation==='Supports'?'positive':source.relation==='Limits'?'caution':'critical'}`}>{source.relation}</span></div><h3><span className="citation">[{i+1}]</span> {source.title}</h3><p>{source.name} · Demo source</p><p>Published {source.date} · Reviewed Oct 03, 2026</p><Button variant="ghost" size="sm" onClick={()=>setExpanded(expanded===source.title?null:source.title)} aria-expanded={expanded===source.title}><FileText/> {expanded===source.title?'Close source':'Open source'} <ArrowUpRight/></Button>{expanded===source.title&&<div className="source-detail"><strong>Demo source record · Not an external publication</strong><p>{source.detail}</p><p>Provenance: manually curated illustrative research record. Freshness: reviewed for this fixed October 2026 demo snapshot. No real source URL is claimed.</p></div>}</article>)}</SheetContent></Sheet>;
+}

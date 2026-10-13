@@ -1,0 +1,8 @@
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ArrowRight } from 'lucide-react';
+import { SiteHeader, SiteFooter } from '@/components/cyber/site-shell';
+import { LifecycleSection } from '@/components/cyber/product-sections';
+import { Button } from '@/components/ui/button';
+import { pageHead } from '@/lib/metadata';
+export const Route = createFileRoute('/how-it-works')({head:()=>pageHead('Learn, research, validate, monitor','Explore Cywrk’s evidence-driven lifecycle for current cybersecurity understanding.'),component:How});
+function How(){return <><SiteHeader/><main><section className="site-container page-intro"><span className="eyebrow">HOW IT WORKS</span><h1>Monitor conclusions.<br/>Not headlines.</h1><p>Start with a question. Follow the evidence. Preserve the context. Come back when something meaningful changes.</p><Button asChild size="lg"><Link to="/demo">Try the workflow <ArrowRight/></Link></Button></section><LifecycleSection/><section className="site-container prose-page"><h2>A claim is only as useful as its boundaries.</h2><p>Cywrk separates supporting evidence from limitations and contradictions. Freshness, provenance, and evaluation conditions stay close to the answer, so a strong result in one lab does not become an unsupported universal claim.</p><h2>Designed to sit above existing tools.</h2><p>GitHub, OpenCTI / MISP, read-only SIEM, sandbox labs, and MCP-enabled security tools are planned extensions. They are not live in this public demo. High-impact actions would require explicit approval.</p></section></main><SiteFooter/></>;}

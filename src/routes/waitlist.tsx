@@ -1,0 +1,7 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { Check, ShieldCheck } from 'lucide-react';
+import { SiteHeader, SiteFooter } from '@/components/cyber/site-shell';
+import { WaitlistForm } from '@/components/cyber/waitlist-form';
+import { pageHead } from '@/lib/metadata';
+export const Route = createFileRoute('/waitlist')({head:()=>pageHead('Join Early Access','Help shape evidence-driven cybersecurity research. Request a Cywrk private beta invitation.'),component:Waitlist});
+function Waitlist(){return <><SiteHeader/><main className="site-container waitlist-page"><div className="waitlist-story"><span className="eyebrow"><span className="status-dot"/> PRIVATE BETA</span><h1>Be part of a<br/>clearer picture.</h1><p>Research cybersecurity with evidence, not noise.<br/>Help shape Cywrk from the beginning.</p><div className="waitlist-benefits">{['Explore an evidence-first research workflow','See where sources agree and where they conflict','Help prioritize what we build next'].map(x=><div key={x}><Check size={17}/>{x}</div>)}</div><div className="waitlist-boundary"><ShieldCheck/><p>A focused private beta. Your perspective matters more than your job title.</p></div></div><section className="signup-panel"><h2>Join Early Access</h2><p>A few details to help us build the right beta.</p><WaitlistForm/></section></main><SiteFooter/></>;}

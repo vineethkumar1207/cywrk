@@ -1,0 +1,27 @@
+export const prompts = ['Why is indirect prompt injection dangerous in tool-using agents?', 'Does input sanitization reliably prevent prompt injection?', 'What changed recently in RAG poisoning research?'];
+export type Source = { name: string; title: string; type: string; relation: 'Supports' | 'Limits' | 'Contradicts'; date: string; detail: string };
+export const sources: Source[] = [
+ { name: 'Agent Security Lab', title: 'Untrusted retrieval and agent tool misuse', type: 'Academic paper', relation: 'Supports', date: 'Apr 18, 2026', detail: 'Independent evaluations reproduce instruction-following from retrieved documents. Tool misuse depends on the permissions available to the agent.' },
+ { name: 'Boundary Research', title: 'Indirect injection in production-like workflows', type: 'Vendor technical report', relation: 'Supports', date: 'Jul 12, 2026', detail: 'Controlled tests demonstrate data access and workflow manipulation in permissive tool configurations; not a prevalence estimate.' },
+ { name: 'AgentBench Community', title: 'Retrieval-to-tool injection reproduction', type: 'GitHub PoC', relation: 'Supports', date: 'Jul 24, 2026', detail: 'A reproducible lab harness shows an injected document influencing a tool call. The environment is synthetic.' },
+ { name: 'Secure Systems Working Group', title: 'Capability scoping for agent workflows', type: 'Standards / guidance document', relation: 'Limits', date: 'Sep 09, 2026', detail: 'Separate authorization, least privilege and approval gates constrain consequences even when an injected instruction is followed.' },
+ { name: 'Filter Evaluation Collective', title: 'Input filtering under adaptive attacks', type: 'Academic paper', relation: 'Contradicts', date: 'Oct 03, 2026', detail: 'Adaptive bypasses contradict the claim that sanitization alone reliably prevents injection. Results do not show every filter is ineffective.' },
+];
+export const ragSources: Source[] = [
+ { name: 'Retrieval Integrity Lab', title: 'Targeted poisoning in retrieval corpora', type: 'Academic paper', relation: 'Supports', date: 'Apr 22, 2026', detail: 'Controlled experiments show targeted answer influence when adversarial documents enter a trusted retrieval corpus.' },
+ { name: 'Index Security Group', title: 'Reproducing answer manipulation across retrievers', type: 'GitHub PoC', relation: 'Supports', date: 'Jul 17, 2026', detail: 'A synthetic reproduction extends results across two retrievers; attacker write access and ranking remain key assumptions.' },
+ { name: 'Retrieval Defense Collective', title: 'Corpus provenance and isolation evaluation', type: 'Vendor technical report', relation: 'Limits', date: 'Sep 24, 2026', detail: 'Provenance checks and isolated indexing reduce exposure. They are not a proof of safety for all retrieval systems.' },
+];
+export const answers = [
+ { title: 'Indirect prompt injection in tool-using agents', summary: 'Indirect prompt injection becomes dangerous when an agent retrieves untrusted external content and interprets that content as instructions rather than data. In tool-enabled systems, this can move beyond text manipulation and influence data access, tool invocation, or workflow execution.', takeaway: 'The security boundary is not just the prompt. It is what the agent is allowed to do.', caveat: 'Impact depends on tool permissions, data access, and whether actions require independent approval.', strength: 'Strong', sources, concepts: ['Untrusted content','Instruction boundaries','Tool authorization'] },
+ { title: 'Input sanitization is not a reliable standalone defense', summary: 'Input sanitization can remove known attack patterns, but it cannot reliably separate every instruction from legitimate data. Encoded, context-dependent and adaptive payloads can evade filters. Evaluations support defense in depth rather than treating a cleaner prompt as a security boundary.', takeaway: 'Keep filtering, but enforce authorization outside the model.', caveat: 'Effectiveness is specific to the evaluated filter, attack set and workflow. A bypass does not mean every mitigation is useless.', strength: 'Mixed', sources, concepts: ['Adaptive bypasses','Defense in depth','Capability scoping'] },
+ { title: 'What changed in RAG poisoning research', summary: 'Recent demo evaluations broaden evidence for targeted answer manipulation when an attacker can place documents in a retrieval corpus. Independent reproduction strengthens the mechanism, while newer mitigation evaluations narrow claims about corpus filtering alone.', takeaway: 'Track corpus provenance and write access, not only the generated answer.', caveat: 'These are controlled evaluations. Real-world feasibility depends on indexing access, ranking and the retrieval pipeline.', strength: 'Developing', sources: ragSources, concepts: ['Corpus integrity','Retrieval ranking','Provenance'] },
+];
+export const topics = ['Indirect Prompt Injection','RAG Poisoning','OAuth Token Abuse','Kubernetes Admission Control'];
+export function resolvePrompt(input: string) {
+ const text = input.toLowerCase().trim();
+ if (/rag|poison/.test(text)) return 2;
+ if (/saniti|filter/.test(text)) return 1;
+ if (/prompt|injection|agent/.test(text)) return 0;
+ return null;
+}
