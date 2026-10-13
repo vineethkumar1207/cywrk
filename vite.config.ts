@@ -3,7 +3,7 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 // On Vercel builds (VERCEL=1 is set automatically) emit Vercel Build Output; elsewhere keep the default target.
-const onVercel = !!process.env.VERCEL;
+const onVercel = !!process.env['VERCEL'];
 
 export default defineConfig({
   tanstackStart: {
