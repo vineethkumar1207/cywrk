@@ -1,0 +1,18 @@
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { SiteHeader, SiteFooter } from '@/components/cyber/site-shell';
+import { pageHead } from '@/lib/metadata';
+export const Route = createFileRoute('/terms')({head:()=>pageHead('Terms of Use','Terms for using the Cywrk public beta website, interactive demo and early-access waitlist.'),component:Terms});
+const sections:[string,string][]=[
+['About these terms','These Terms of Use apply to the Cywrk website, its interactive demo and its early-access waitlist and contact forms (the “site”). By using the site, you agree to these terms. Joining the waitlist does not create a subscription or guarantee access to any product.'],
+['Acceptable use','Use the site lawfully and respectfully. Do not misuse the forms (for example by submitting spam, false details or someone else’s information without permission), attempt to disrupt the site, scrape it at scale, or submit malicious code or content.'],
+['No unauthorised security testing','Do not scan, probe, penetration-test, load-test or attempt to bypass security controls on the site or its infrastructure without our prior written permission. If you believe you have found a vulnerability, please tell us through the contact page and do not access data that is not yours.'],
+['Beta and demo content','The site and demo are an early-stage beta. Demo research results use illustrative sample data and sources marked as demo sources; they are not security advice and should not be relied on for operational decisions. Features described as planned or beta are not yet available.'],
+['No warranty','The site is provided “as is” and “as available”. To the extent permitted by law, we make no warranties that it will be uninterrupted, error-free or fit for a particular purpose.'],
+['Intellectual property','The Cywrk name, site design, text, graphics and software are owned by or licensed to Cywrk. You may view and share links to the site for personal or internal evaluation purposes, but may not copy, modify or redistribute its content without permission.'],
+['Third-party services','The site relies on third-party hosting, database and email providers, and may link to external sites. We are not responsible for third-party sites or services we do not control.'],
+['Suspension','We may suspend or restrict access to the site, or remove waitlist entries, where reasonably necessary to address misuse, security risks or breaches of these terms.'],
+['Limitation of liability','To the extent permitted by law, Cywrk is not liable for indirect or consequential loss arising from use of this free public beta site. Nothing in these terms limits liability that cannot be limited by law, including for death or personal injury caused by negligence, fraud, or your statutory rights as a consumer.'],
+['Changes','We may update these terms as the site develops. The version date below shows the latest version; continued use after changes means you accept the updated terms.'],
+['Governing law','These terms are governed by the laws of Ireland, and the courts of Ireland have jurisdiction, without depriving consumers of protections under the laws of their country of residence.'],
+];
+function Terms(){return <><SiteHeader/><main className="site-container prose-page"><span className="eyebrow">TERMS</span><h1>Terms of Use</h1><p className="legal-meta">Version 2026-10-15 · Effective 15 October 2026</p>{sections.map(([t,x])=><section key={t}><h2>{t}</h2><p>{x}</p></section>)}<section><h2>Privacy and contact</h2><p>How we handle personal data is explained in our <Link to="/privacy">Privacy Notice</Link>. Questions about these terms can be sent through our <Link to="/contact">contact page</Link>.</p></section></main><SiteFooter/></>;}
