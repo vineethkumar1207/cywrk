@@ -1,6 +1,6 @@
 import { createServerFn } from '@tanstack/react-start';
-import { waitlistSchema } from './waitlist-schema';
-import { insertWaitlistSignup } from './waitlist-db.server';
+import { contactSchema, waitlistSchema } from './waitlist-schema';
+import { insertContactMessage, insertWaitlistSignup } from './waitlist-db.server';
 
 export const joinWaitlist = createServerFn({ method: 'POST' })
  .inputValidator((input: unknown) => waitlistSchema.parse(input))
@@ -8,3 +8,7 @@ export const joinWaitlist = createServerFn({ method: 'POST' })
   const status = await insertWaitlistSignup(data);
   return { status };
  });
+
+export const sendContactMessage = createServerFn({ method: 'POST' })
+ .inputValidator((input: unknown) => contactSchema.parse(input))
+ .handler(async ({ data }) => ({ status: await insertContactMessage(data) }));
